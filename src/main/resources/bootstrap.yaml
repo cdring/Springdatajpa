@@ -1,0 +1,22 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: jpa
+  profiles:
+    active: test
+  cloud:
+    nacos:
+      config:
+        server-addr: ${nacos.server-addr}
+        file-extension: yaml
+        ext-config:
+          - data-id: application.yaml
+            refresh: true
+        namespace: ${nacos.namespace}
+      discovery:
+        server-addr: ${nacos.server-addr}
+        namespace: ${nacos.namespace}
+nacos:
+  server-addr: 192.168.2.14:8848
+  namespace: 46dd3d5c-238f-4eb0-a2b7-5eaa5b45978d
