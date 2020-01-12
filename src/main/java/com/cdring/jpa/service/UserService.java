@@ -4,7 +4,7 @@ import com.cdring.jpa.jwt.JwtUserDetails;
 import com.cdring.jpa.repository.User;
 
 public interface UserService {
-    String login(String username, String password);
+    String login(User user);
     void logout(String token);
     User register(User user);
 }

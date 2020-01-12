@@ -33,18 +33,26 @@ public class UserServiceimpl implements UserService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public String login(String username, String password) {
-        UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(username, password);
-        Authentication authentication = authenticationManager.authenticate(upToken);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        JwtUserDetails jwtUserDetails = (JwtUserDetails) authentication.getPrincipal();
+    public String login(User user) {
+        UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
+        try {
+            Authentication authentication = authenticationManager.authenticate(upToken);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            JwtUserDetails jwtUserDetails = (JwtUserDetails) authentication.getPrincipal();
+            String accessToken = jwtTokenUtil.generateToken(jwtUserDetails);
+            //jwtUserDetails.setToken("Bearer " + accessToken);
+            return "Bearer " + accessToken;
+
+        } catch (Exception e) {
+            //System.out.println(e);
+            return "用户名或密码错误";
+        }
+
         // 用户已经禁用
 //        if (JwtUserDetails.getStatus() == BaseStatus.INVALID.getCode()) {
 //            throw new GlobalDefaultException(6011);
 //        }
-        String accessToken = jwtTokenUtil.generateToken(jwtUserDetails);
-        //jwtUserDetails.setToken("Bearer " + accessToken);
-        return "Bearer " + accessToken;
+
     }
 
     @Override
@@ -58,7 +66,6 @@ public class UserServiceimpl implements UserService {
         if(!userRepository.findByUsername(username).isEmpty()){
             throw new AuthenticationCredentialsNotFoundException("用户已经存在");
         }
-
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setCreateTime(new Date());
         user.setLastLoginTime(new Date());

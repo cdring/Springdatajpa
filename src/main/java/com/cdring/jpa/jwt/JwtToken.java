@@ -82,10 +82,9 @@ public class JwtToken {
      */
     public JwtUserDetails getAuthentication(String token) {
         Claims claims = getClaimsFromToken(token);
-        JwtUserDetails sysUserDetails = new JwtUserDetails();
-        String sig = claims.get("sig").toString();
-        sysUserDetails.setUsername(claims.getSubject());
-        return sysUserDetails;
+        JwtUserDetails jwtUserDetails = new JwtUserDetails();
+        jwtUserDetails.setUsername(claims.getSubject());
+        return jwtUserDetails;
     }
 
     /**

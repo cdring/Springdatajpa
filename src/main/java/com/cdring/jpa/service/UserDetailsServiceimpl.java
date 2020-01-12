@@ -3,7 +3,6 @@ package com.cdring.jpa.service;
 import com.cdring.jpa.jwt.JwtUserDetails;
 import com.cdring.jpa.repository.User;
 import com.cdring.jpa.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -38,4 +37,5 @@ public class UserDetailsServiceimpl implements UserDetailsService {
                 authorities);
         return jwtUserDetails;
     }
+
 }

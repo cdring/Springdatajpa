@@ -14,12 +14,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping(value = "login")
-    public String login(String username, String password){
-        return userService.login(username,password);
+    @PostMapping(value = "/login")
+    public String login(@RequestBody User user){
+        return userService.login(user);
     }
 
-    @PostMapping(value = "register")
+    @PostMapping(value = "/register")
     public User register(@RequestBody User user){
         return userService.register(user);
     }

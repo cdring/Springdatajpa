@@ -12,3 +12,10 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+
+admin:
+  security:
+    jwt:
+      header: Authorization
+      secret: UdmW5gI9&SZs3q6tL78^^0*pH@#XeC2QoQ$$1A1z7hcrqC^xUoLOj8UjD7kTgfMV
+      expire: 172000
