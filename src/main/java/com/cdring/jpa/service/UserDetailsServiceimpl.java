@@ -3,6 +3,8 @@ package com.cdring.jpa.service;
 import com.cdring.jpa.jwt.JwtUserDetails;
 import com.cdring.jpa.repository.User;
 import com.cdring.jpa.repository.UserRepository;
+import com.fasterxml.jackson.databind.util.BeanUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,11 +32,14 @@ public class UserDetailsServiceimpl implements UserDetailsService {
         }
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-        JwtUserDetails jwtUserDetails = new JwtUserDetails(user.getId(),
-                user.getUsername(),
-                user.getPassword(),
-                user.getEmail(),
-                authorities);
+//        JwtUserDetails jwtUserDetails = new JwtUserDetails(user.getId(),
+//                user.getUsername(),
+//                user.getPassword(),
+//                user.getEmail(),
+//                authorities);
+        JwtUserDetails jwtUserDetails = new JwtUserDetails();
+        BeanUtils.copyProperties(user,jwtUserDetails);
+        jwtUserDetails.setAuthorities(authorities);
         return jwtUserDetails;
     }
 

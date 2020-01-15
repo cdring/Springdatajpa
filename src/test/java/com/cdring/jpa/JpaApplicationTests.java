@@ -61,7 +61,6 @@ class JpaApplicationTests {
         JwtUserDetails jwtUserDetails = new JwtUserDetails(user.getId(),
                 user.getUsername(),
                 user.getPassword(),
-                user.getEmail(),
                 authorities);
         //return jwtUserDetails;
     }
